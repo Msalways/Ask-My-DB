@@ -1,6 +1,6 @@
 import openai
 from openai import OpenAI
-from askdb.llm.base import LLMProvider
+from askmydb.llm.base import LLMProvider
 from .sql_prompt import build_sql_prompt, build_system_prompt
 
 

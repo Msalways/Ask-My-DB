@@ -4,7 +4,7 @@ from .schema.loader import load_schema
 from .llm.base import LLMProvider
 
 
-class AskDB:
+class AskMyDB:
     def __init__(self, db_url: str, llm: LLMProvider):
         """        
         Core class for AskDB.

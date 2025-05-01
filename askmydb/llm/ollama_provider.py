@@ -1,7 +1,7 @@
 import json
 import ollama
 from .sql_prompt import build_sql_prompt, build_system_prompt
-from askdb.llm.base import LLMProvider
+from askmydb.llm.base import LLMProvider
 
 class OllamaProvider(LLMProvider):
     """Ollama AI model provider."""

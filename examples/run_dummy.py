@@ -3,8 +3,8 @@
 import os
 import sqlite3
 
-from askdb import AskDB
-from askdb.llm.dummy import DummyLLM
+from askmydb import AskMyDB
+from askmydb.llm.dummy import DummyLLM
 
 
 # Create in-memory SQLite DB and populate it
@@ -23,6 +23,6 @@ def setup_sample_db():
 if __name__ == "__main__":
     setup_sample_db()
 
-    db = AskDB(db_url=db_url, llm=DummyLLM())
+    db = AskMyDB(db_url=db_url, llm=DummyLLM())
     result = db.ask("Get all users")
     print("[📊 Result]:", result)

@@ -1,6 +1,6 @@
 import pytest
 
-from askdb.llm.ollama_provider import OllamaProvider
+from askmydb.llm.ollama_provider import OllamaProvider
 
 @pytest.fixture
 def ollama_provider():

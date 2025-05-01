@@ -1,4 +1,4 @@
-# askdb
+# askMydb
 
 A Python package for querying databases using natural language.
 

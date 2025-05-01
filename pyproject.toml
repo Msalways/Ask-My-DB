@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name="askdb"
+name="ask-mydb"
 version="0.1.0"
 description="A Python package for querying databases using natural language."
 readme="README.md"
@@ -27,4 +27,4 @@ all = [
 
 
 [tool.setuptools]
-packages = ["askdb"]
+packages = ["askmydb"]

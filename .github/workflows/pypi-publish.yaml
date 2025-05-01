@@ -2,12 +2,13 @@ name: Upload Python Package to PyPI
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "v*.*.*" # Only trigger on version tags like v1.0.0
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -25,8 +26,8 @@ jobs:
       - name: Build package
         run: python -m build
 
-      - name: Publish package
+      - name: Publish package to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: python -m twine upload dist/*
+        run: twine upload --skip-existing dist/*

@@ -2,8 +2,8 @@ name: Upload Python Package to PyPI
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "v*.*.*" # Match version tags like v0.1.0, v1.2.3
 
 jobs:
   publish:
@@ -13,7 +13,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Ensure full git history for version bumping
+          fetch-depth: 0 # Required to access tags
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -22,48 +22,24 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install build twine bump-my-version
 
-      - name: Determine bump type from commit message
-        id: bump
+      - name: Get tag version
+        id: get_tag
         run: |
-          git log -1 --pretty=%B > commit_msg.txt
-          if grep -iq "#major" commit_msg.txt; then
-            echo "bump=major" >> $GITHUB_OUTPUT
-          elif grep -iq "#minor" commit_msg.txt; then
-            echo "bump=minor" >> $GITHUB_OUTPUT
-          else
-            echo "bump=patch" >> $GITHUB_OUTPUT
-          fi
+          echo "tag=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
-      - name: Configure git identity
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-      - name: Bump version
-        run: bump-my-version bump ${{ steps.bump.outputs.bump }}
-
-      - name: Commit and push version bump
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add pyproject.toml
-          git diff --cached --quiet || git commit -m "ci: bump version automatically [skip ci]"
-          git push
-
-      - name: Clean up temp files
-        run: rm -f commit_msg.txt
-
-      - name: Clean old builds
-        run: rm -rf dist/
+      - name: Bump to tag version
+        run: bump-my-version set ${{ steps.get_tag.outputs.tag }} --yes
 
       - name: Build package
-        run: python -m build
+        run: |
+          rm -rf dist/
+          python -m build
 
-      - name: Publish package to PyPI
+      - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: python -m twine upload dist/*
+        run: twine upload dist/*

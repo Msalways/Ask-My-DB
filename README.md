@@ -1,10 +1,10 @@
-# ask-mydb
+# askmydb
 
 A Python package for querying databases using natural language.
 
 ## Overview
 
-askdb allows you to interact with your databases by asking questions in natural language. It leverages large language models (LLMs) to convert your queries into SQL and execute them on the specified database.
+askmydb allows you to interact with your databases by asking questions in natural language. It leverages large language models (LLMs) to convert your queries into SQL and execute them on the specified database.
 
 ## Features
 
@@ -15,46 +15,51 @@ askdb allows you to interact with your databases by asking questions in natural 
 
 ## Installation
 
-Install the package dependencies using pip:
+Install the package and its dependencies using pip:
 
 ```bash
-pip install sqlalchemy
+pip install askmydb
 ```
 
-For optional LLM providers, install the corresponding extras:
+The package requires the following dependencies:
+
+- openai
+- ollama
+- sqlalchemy
+
+You can install these dependencies individually if needed:
 
 ```bash
-pip install askdb[openai]
-pip install askdb[ollama]
+pip install openai ollama sqlalchemy
 ```
 
 ## Usage
 
-Below are examples of how to use askdb with different LLM providers.
+Below are examples of how to use askmydb with different LLM providers.
 
 ### Using OllamaProvider
 
 ```python
-from askdb import AskDB
-from askdb.llm.ollama_provider import OllamaProvider
+from askmydb import AskMyDB
+from askmydb.llm.ollama_provider import OllamaProvider
 
-if __name__ == \"__main__\":
-    llm = OllamaProvider(base_url=\"http://localhost:32768\", model=\"qwen2.5:1.5b\")
-    askDb = AskDB(db_url=\"sqlite:///IMDB.db\", llm=llm)
-    query, result = askDb.ask(\"get the movies on action genre with rating more than 5 sort it high to low\")
+if __name__ == "__main__":
+    llm = OllamaProvider(base_url="http://localhost:32768", model="qwen2.5:1.5b")
+    askDb = AskMyDB(db_url="sqlite:///IMDB.db", llm=llm)
+    query, result = askDb.ask("get the movies on action genre with rating more than 5 sort it high to low")
     print(result)
 ```
 
 ### Using OpenAIProvider (via OpenRouter)
 
 ```python
-from askdb import AskDB
-from askdb.llm.openai_provider import OpenAIProvider
+from askmydb import AskMyDB
+from askmydb.llm.openai_provider import OpenAIProvider
 
-if __name__ == \"__main__\":
-    llm = OpenAIProvider(api_key=\"your_api_key_here\", base_url=\"https://openrouter.ai/api/v1\", model=\"meta-llama/llama-4-maverick:free\")
-    askDb = AskDB(db_url=\"sqlite:///IMDB.db\", llm=llm)
-    query, result = askDb.ask(\"get the movies on action genre with rating more than 5 sort it high to low\")
+if __name__ == "__main__":
+    llm = OpenAIProvider(api_key="your_api_key_here", base_url="https://openrouter.ai/api/v1", model="meta-llama/llama-4-maverick:free")
+    askDb = AskMyDB(db_url="sqlite:///IMDB.db", llm=llm)
+    query, result = askDb.ask("get the movies on action genre with rating more than 5 sort it high to low")
     print(query, result)
 ```
 
@@ -62,13 +67,19 @@ if __name__ == \"__main__\":
 
 This project is licensed under the MIT License.
 
+## Author and Repository
+
+Author: Shanthosh  
+Email: shanthubolt@gmail.com  
+Repository: [https://github.com/Msalways/Ask-My-DB](https://github.com/Msalways/Ask-My-DB)
+
 ## Custom LLM Provider Example
 
 You can create your own custom LLM provider by subclassing `LLMProvider`. Below is an example implementation of a `CustomProvider`:
 
 ```python
-from askdb.llm.base import LLMProvider
-from askdb.llm.sql_prompt import build_sql_prompt, build_system_prompt
+from askmydb.llm.base import LLMProvider
+from askmydb.llm.sql_prompt import build_sql_prompt, build_system_prompt
 
 class CustomProvider(LLMProvider):
     def __init__(self, base_url, model, temperature):
@@ -87,12 +98,12 @@ class CustomProvider(LLMProvider):
 ### Using CustomProvider
 
 ```python
-from askdb import AskDB
+from askmydb import AskMyDB
 from my_custom_provider import CustomProvider
 
 if __name__ == "__main__":
     llm = CustomProvider(base_url="your_base_url", model="your_model", temperature=0.7)
-    askDb = AskDB(db_url="sqlite:///IMDB.db", llm=llm)
-    query, result = askDb.ask("get the movies on action genre with rating more than 5 sort it high to low")
+    askDb = AskMyDB(db_url="sqlite:///IMDB.db", llm=llm)
+    query, result = askMyDB.ask("get the movies on action genre with rating more than 5 sort it high to low")
     print(query, result)
 ```

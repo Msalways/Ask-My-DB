@@ -1,7 +1,6 @@
-
-from .sql.executor import execute_sql
-from .schema.loader import load_schema
-from .llm.base import LLMProvider
+from askmydb.sql.executor import execute_sql
+from askmydb.schema.loader import load_schema
+from askmydb.llm.base import LLMProvider
 
 
 class AskMyDB:
@@ -34,4 +33,4 @@ class AskMyDB:
             results = execute_sql(sql_query, self.db_url)
             return sql_query,results
         except Exception as e:
-            raise RuntimeError(f"AskDB: {e}") from e
+            raise RuntimeError(f"AskMyDB: {e}") from e

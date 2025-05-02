@@ -1,8 +1,8 @@
 
-from .openai_provider import OpenAIProvider
-from .ollama_provider import OllamaProvider
-from .base import LLMProvider
-# from .dummy import DummyLLM
+from askmydb.llm.openai_provider import OpenAIProvider
+from askmydb.llm.ollama_provider import OllamaProvider
+from askmydb.llm.base import LLMProvider
+# from askmydb.llm.dummy import DummyLLM
 
 __all__ = [
     "LLMProvider",

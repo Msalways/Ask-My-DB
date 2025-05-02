@@ -50,6 +50,14 @@
         "documentation": {}
     },
     {
+        "label": "LLMProvider",
+        "importPath": "askmydb.llm.base",
+        "description": "askmydb.llm.base",
+        "isExtraImport": true,
+        "detail": "askmydb.llm.base",
+        "documentation": {}
+    },
+    {
         "label": "openai",
         "kind": 6,
         "isExtraImport": true,
@@ -96,6 +104,22 @@
         "description": "sqlalchemy",
         "isExtraImport": true,
         "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "execute_sql",
+        "importPath": "askmydb.sql.executor",
+        "description": "askmydb.sql.executor",
+        "isExtraImport": true,
+        "detail": "askmydb.sql.executor",
+        "documentation": {}
+    },
+    {
+        "label": "load_schema",
+        "importPath": "askmydb.schema.loader",
+        "description": "askmydb.schema.loader",
+        "isExtraImport": true,
+        "detail": "askmydb.schema.loader",
         "documentation": {}
     },
     {

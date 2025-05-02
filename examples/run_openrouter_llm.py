@@ -8,7 +8,7 @@ load_dotenv()
 
 
 if __name__ == "__main__":
-    llm = OpenAIProvider(api_key=os.getenv("API_URL"),base_url="https://openrouter.ai/api/v1", model="meta-llama/llama-4-maverick:free")
+    llm = OpenAIProvider(api_key=os.getenv("API_KEY"),base_url="https://openrouter.ai/api/v1", model="meta-llama/llama-4-maverick:free")
     AskMyDB = AskMyDB(db_url="sqlite:///IMDB.db",llm=llm)
     query,result = AskMyDB.ask("get the movies on action genre with rating more than 5 sort it high to low")
     

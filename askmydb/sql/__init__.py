@@ -1,1 +1,3 @@
-from .executor import execute_sql
+from askmydb.sql.executor import execute_sql
+
+__all__ = ["execute_sql"]

@@ -37,13 +37,13 @@ jobs:
             echo "bump=patch" >> $GITHUB_OUTPUT
           fi
 
-      - name: Bump version
-        run: bump-my-version bump ${{ steps.bump.outputs.bump }}
-
       - name: Configure git identity
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
+      - name: Bump version
+        run: bump-my-version bump ${{ steps.bump.outputs.bump }}
 
       - name: Commit and push version bump
         run: |

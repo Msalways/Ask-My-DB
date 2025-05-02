@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Ensure full git history for version bumping
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -38,15 +40,18 @@ jobs:
       - name: Bump version
         run: bump-my-version bump ${{ steps.bump.outputs.bump }}
 
-      - name: Commit version bump
+      - name: Configure git identity
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
+      - name: Commit and push version bump
+        run: |
           git add pyproject.toml
           git commit -m "ci: bump version automatically [skip ci]"
           git push
 
-      - name: Remove old build files
+      - name: Clean old builds
         run: rm -rf dist/
 
       - name: Build package

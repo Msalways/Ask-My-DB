@@ -18,7 +18,6 @@ commit = true
 tag = true
 
 [tool.bump2version.file."pyproject.toml"]
-
 [tool.bump2version.file."src/ask_mydb/__init__.py"]
 
 [project.optional-dependencies]

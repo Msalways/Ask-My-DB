@@ -1,16 +1,17 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='askdb',
-    version='0.1.1',
-    author='Shanthosh',
-    description='A simple and efficient database for storing and querying data.',
-    long_description=open('README.md').read(),
-    long_description_content_type='text/markdown',
-    packages=find_packages(exclude=["tests","examples"]),
-    install_requires = [
-        'sqlalchemy',
-        'ollama',
+    name='askmydb',
+    version='0.1.0',
+    packages=find_packages(),
+    install_requires=[
         'openai',
-    ]
+        'ollama',
+        'sqlalchemy',
+        ],
+    author='Shanthosh',
+    author_email='shanthubolt@gmail.com',
+    description='A natural language SQL generator with LLM integration',
+    url='https://github.com/Msalways/Ask-My-DB',
+    python_requires='>=3.7',
 )

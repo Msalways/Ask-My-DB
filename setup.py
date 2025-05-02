@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='askdb',
-    version='0.1.1',
+    version='0.1.0',
     author='Shanthosh',
     description='A simple and efficient database for storing and querying data.',
     long_description=open('README.md').read(),

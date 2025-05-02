@@ -33,12 +33,12 @@ jobs:
         run: |
           bump2version --new-version ${{ steps.get_version.outputs.version }} patch --allow-dirty --no-tag
 
-      - name: Commit updated version
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git commit -am "ci: bump version to ${{ steps.get_version.outputs.version }} [skip ci]"
-          git push
+      #   - name: Commit updated version
+      #     run: |
+      #       git config user.name "github-actions"
+      #       git config user.email "github-actions@github.com"
+      #       git commit -am "ci: bump version to ${{ steps.get_version.outputs.version }} [skip ci]"
+      #       git push
 
       - name: Build package
         run: python -m build

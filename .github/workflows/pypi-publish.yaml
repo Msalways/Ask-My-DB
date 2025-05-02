@@ -1,9 +1,9 @@
-name: Upload Python Package to PyPI
+name: Publish Python Package on Tag
 
 on:
   push:
     tags:
-      - "v*.*.*" # Match version tags like v0.1.0, v1.2.3
+      - "v*.*.*" # Triggers only on version tags like v0.1.0
 
 jobs:
   publish:
@@ -13,7 +13,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Required to access tags
+          fetch-depth: 0 # Ensure full history for versioning
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -22,24 +22,29 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install build twine bump-my-version
+          python -m pip install --upgrade pip
+          pip install build twine bump2version
 
-      - name: Get tag version
-        id: get_tag
+      - name: Extract version from tag
+        id: get_version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update version in pyproject.toml
         run: |
-          echo "tag=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          bump2version --new-version ${{ steps.get_version.outputs.version }} patch --allow-dirty --no-tag
 
-      - name: Bump to tag version
-        run: bump-my-version set ${{ steps.get_tag.outputs.tag }} --yes
+      - name: Commit updated version
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git commit -am "ci: bump version to ${{ steps.get_version.outputs.version }} [skip ci]"
+          git push
 
       - name: Build package
-        run: |
-          rm -rf dist/
-          python -m build
+        run: python -m build
 
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: twine upload dist/*
+        run: python -m twine upload dist/*

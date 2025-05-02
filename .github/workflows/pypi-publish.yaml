@@ -47,9 +47,14 @@ jobs:
 
       - name: Commit and push version bump
         run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           git add pyproject.toml
-          git commit -m "ci: bump version automatically [skip ci]"
+          git diff --cached --quiet || git commit -m "ci: bump version automatically [skip ci]"
           git push
+
+      - name: Clean up temp files
+        run: rm -f commit_msg.txt
 
       - name: Clean old builds
         run: rm -rf dist/

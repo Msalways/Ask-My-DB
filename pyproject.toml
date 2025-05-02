@@ -12,6 +12,15 @@ dependencies = [
     "sqlalchemy"
 ]
 
+[tool.bumpversion]
+current_version = "0.1.0"
+commit = true
+tag = true
+
+[tool.bumpversion.file."pyproject.toml"]
+
+[tool.bumpversion.file."src/ask_mydb/__init__.py"]
+
 [project.optional-dependencies]
 dev = ["black", "pytest"]
 openai = ["openai"]

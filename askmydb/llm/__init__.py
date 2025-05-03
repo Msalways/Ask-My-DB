@@ -1,12 +1,15 @@
+from .base import LLMProvider
 
-from askmydb.llm.openai_provider import OpenAIProvider
-from askmydb.llm.ollama_provider import OllamaProvider
-from askmydb.llm.base import LLMProvider
-# from askmydb.llm.dummy import DummyLLM
+__all__ = ["LLMProvider"]
 
-__all__ = [
-    "LLMProvider",
-    # "DummyLLM",
-    "OllamaProvider",
-    "OpenAIProvider",
-]
+try:
+    from .openai_provider import OpenAIProvider
+    __all__.append("OpenAIProvider")
+except ImportError:
+    OpenAIProvider = None
+
+try:
+    from .ollama_provider import OllamaProvider
+    __all__.append("OllamaProvider")
+except ImportError:
+    OllamaProvider = None

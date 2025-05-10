@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "askmydb"
-version = "0.1.5"
+version = "0.1.6"
 description = "A Python package for querying databases using natural language."
 readme = "README.md"
 requires-python = ">=3.7"
@@ -24,7 +24,7 @@ all = ["sqlalchemy", "black", "pytest", "openai", "ollama"]
 where = ["."]
 
 [tool.bump2version]
-current_version = "0.1.5"
+current_version = "0.1.6"
 commit = true
 tag = true
 

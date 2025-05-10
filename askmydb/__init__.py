@@ -4,7 +4,7 @@ from askmydb.askmydb import AskMyDB
 from askmydb import llm as LLM
 
 __all__ = ['AskMyDB', 'LLM']
-__version__ = "0.1.5"
+__version__ = "0.1.6"
 
 
 def _lazy_llm():

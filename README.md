@@ -9,7 +9,7 @@ askmydb allows you to interact with your databases by asking questions in natura
 ## Features
 
 - Query databases using natural language prompts.
-- Supports multiple LLM providers (e.g., dummy, OpenAI, Ollama).
+- Supports multiple LLM providers (e.g. OpenAI, Ollama, etc).
 - Works with SQLite and other databases supported by SQLAlchemy.
 - Easy to set up and use.
 - Retrieve database schema in both JSON and human-readable text formats.

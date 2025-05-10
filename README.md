@@ -12,6 +12,7 @@ askmydb allows you to interact with your databases by asking questions in natura
 - Supports multiple LLM providers (e.g., dummy, OpenAI, Ollama).
 - Works with SQLite and other databases supported by SQLAlchemy.
 - Easy to set up and use.
+- Retrieve database schema in both JSON and human-readable text formats.
 
 ## Installation
 
@@ -63,6 +64,34 @@ if __name__ == "__main__":
     print(query, result)
 ```
 
+## Retrieving Database Schema
+
+askmydb allows you to retrieve the database schema in two formats: JSON and human-readable text. This can be useful for understanding the structure of your database programmatically or for display purposes.
+
+You can use the following methods of the `AskMyDB` class:
+
+- `get_schema_json()`: Returns the schema as a JSON-like dictionary.
+- `get_schema_text()`: Returns the schema as a formatted string for human readability.
+
+### Example
+
+```python
+from askmydb import AskMyDB
+from askmydb.llm.openai_provider import OpenAIProvider
+
+if __name__ == "__main__":
+    llm = OpenAIProvider(api_key="your_api_key_here", base_url="https://openrouter.ai/api/v1", model="meta-llama/llama-4-maverick:free")
+    askDb = AskMyDB(db_url="sqlite:///IMDB.db", llm=llm)
+
+    # Get schema in JSON format
+    schema_json = askDb.get_schema_json()
+    print("Schema (JSON):", schema_json)
+
+    # Get schema in text format
+    schema_text = askDb.get_schema_text()
+    print("Schema (Text):", schema_text)
+```
+
 ## License
 
 This project is licensed under the MIT License.
@@ -104,6 +133,6 @@ from my_custom_provider import CustomProvider
 if __name__ == "__main__":
     llm = CustomProvider(base_url="your_base_url", model="your_model", temperature=0.7)
     askDb = AskMyDB(db_url="sqlite:///IMDB.db", llm=llm)
-    query, result = askMyDB.ask("get the movies on action genre with rating more than 5 sort it high to low")
+    query, result = askDb.ask("get the movies on action genre with rating more than 5 sort it high to low")
     print(query, result)
 ```

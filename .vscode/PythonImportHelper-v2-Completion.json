@@ -288,7 +288,7 @@
         "kind": 2,
         "importPath": "askmydb.schema.loader",
         "description": "askmydb.schema.loader",
-        "peekOfCode": "def load_schema(db_url:str) -> str:\n    \"\"\"\n    Load the database schema from the given URL.\n    Args:\n        db_url (str): The database URL.\n    Returns:\n        str: The database schema.\n    \"\"\"\n    engine = create_engine(db_url)\n    inspector = inspect(engine)",
+        "peekOfCode": "def load_schema(db_url: str) -> dict:\n    \"\"\"\n    Load the database schema from the given URL.\n    Args:\n        db_url (str): The database URL.\n    Returns:\n        dict: {\n            \"text\": str (formatted schema for human readability),\n            \"json\": dict (structured schema for programmatic access)\n        }",
         "detail": "askmydb.schema.loader",
         "documentation": {}
     },

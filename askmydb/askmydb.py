@@ -15,9 +15,33 @@ class AskMyDB:
         self.db_url = db_url
         self.llm = llm
         try:
-            self.schema = load_schema(db_url)
+            schema = load_schema(db_url)
+            self.schema = schema["text"]
+            self.schema_json = schema["json"]
         except Exception as e:
             raise RuntimeError(f"AskDB.__init__ error loading schema: {e}") from e
+        
+    def get_schema_json(self) -> dict:
+        """
+        Get the schema of the database.
+        Returns:
+            dict: _schema_.
+        """
+        try:
+            return self.schema_json
+        except Exception as e:
+            raise RuntimeError(f"AskMyDB: {e}") from e
+    
+    def get_schema_text(self) -> str:
+        """
+        Get the schema of the database.
+        Returns:
+            str: _schema_.
+        """
+        try:
+            return self.schema
+        except Exception as e:
+            raise RuntimeError(f"AskMyDB: {e}") from e
     
     def ask(self, prompt: str) -> list[dict]:
         """
